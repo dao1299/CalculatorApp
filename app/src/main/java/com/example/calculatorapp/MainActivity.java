@@ -2,6 +2,7 @@ package com.example.calculatorapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btnClear:
                 txtResult.setText("");
+                result=null;
+                operator=0;
+                operandA=null;
+                operandB=null;
 //                isHaveResult=false;
                 break;
             case R.id.btnPercent:
@@ -77,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     TextView textViewOperator = (TextView) v;
                     String strOperator = textViewOperator.getText().toString();
                     onCalculate(strOperator);
-
                 break;
             case R.id.btnEqual:
                 onEqual();
@@ -102,12 +106,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         operandA = result;
+        if ((long) Double.parseDouble(result) == Double.parseDouble(result))
+            result = ((long) Double.parseDouble(result))+"";
         txtResult.setText(result);
 
     }
 
     private void onCalculate(String str) {
         isClickFunction=true;
+//        if (operator!=0){
+//            onEqual();
+//        }
         switch (str){
             case "+":
                 operator=1;
